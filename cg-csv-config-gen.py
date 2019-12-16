@@ -52,14 +52,12 @@ print(" Output Directory:", output_directory)
 print("")
     
 
+
 ### KARL SCHMUTZ - The following additional variables are needed to build the address
 # this is used to determine the LAT/Long from the function get_lat_long (string)
 headers = {}
-site_lat_header = "latitude"
-site_long_header = "longitude"
-
-site_lat_index = "site_lat"
-site_long_index = "site_long"
+site_lat_header = "site_1_location_latitude"
+site_long_header = "site_1_location_longitude"
 
 site_street_column = -1
 site_city_column = -1
@@ -67,12 +65,12 @@ site_state_column = -1
 site_zipcode_column = -1
 site_country_column = -1
 site_street2_column = -1
-site_street2_header = "street2"
-site_street_header = "street"
-site_city_header = "city"
-site_state_header = "state"
-site_zipcode_header = "post_code"
-site_country_header = "country"
+site_street2_header = "site_1_address_street2"
+site_street_header = "site_1_address_street"
+site_city_header = "site_1_address_city"
+site_state_header = "site_1_address_state"
+site_zipcode_header = "site_1_address_post_code"
+site_country_header = "site_1_address_country"
 
 
 ### this function was 100% provided to me by Dan Shechter Gelles
@@ -164,9 +162,9 @@ if not os.path.exists(output_directory):
 print("Create templates...")
 for parameter in config_parameters:
     result = template.render(parameter)
-    f = open(os.path.join(output_directory, parameter['site_name'] + ".yaml"), "w")
+    f = open(os.path.join(output_directory, parameter['site_1'] + ".yaml"), "w")
     f.write(result)
     f.close()
-    print("Configuration '%s' created..." % (parameter['site_name'] + ".yaml"))
+    print("Configuration '%s' created..." % (parameter['site_1'] + ".yaml"))
 
 print("DONE")
