@@ -162,6 +162,7 @@ if not os.path.exists(output_directory):
 print("Create templates...")
 for parameter in config_parameters:
     result = template.render(parameter)
+    result = result.replace(": ''",": ") ##PATCH for do_site as NULL parameters inside of single quotes can break the do_site import script
     f = open(os.path.join(output_directory, parameter['site_1'] + ".yaml"), "w")
     f.write(result)
     f.close()
