@@ -94,7 +94,7 @@ def get_lat_long (text_as_str):
 # 1. read the contents from the CSV files - 
 #   Reworked to use the Python CSV handler as some edge cases were causing f.open to parse incorrectly
 print("Read CSV parameter file...")
-with open(csv_parameter_file, newline='') as csvinput:
+with open(csv_parameter_file, newline='', encoding='utf-8-sig') as csvinput:
 
     # 2. for Jinja2, we need to convert the given CSV file into the a python
     # dictionary to get the script a bit more reusable, I will not statically
@@ -130,21 +130,6 @@ with open(csv_parameter_file, newline='') as csvinput:
         parameter_dict = dict()
         for i in range(0,len(row)):
             parameter_dict[headers[i]] = row[i]
-        
-        if parameter_dict[site_lat_header] == "" and parameter_dict[site_long_header] == "":
-            address_concat = parameter_dict[site_street_header]
-            address_concat += ", " + parameter_dict[site_city_header] 
-            address_concat += ", " + parameter_dict[site_state_header] + " " + parameter_dict[site_zipcode_header]
-            if (parameter_dict[site_country_header] != ""):      #country is optional. if blank, do not use
-                address_concat += ", "
-                address_concat += parameter_dict[site_country_header]
-            address_concat = address_concat.strip()
-            print("     FOUND street address: ", address_concat) 
-            latlon_request = get_lat_long(address_concat)
-            parameter_dict[site_lat_header] = latlon_request[0]
-            parameter_dict[site_long_header] = latlon_request[1]
-            print ("     LAT/LONG:",latlon_request[0],latlon_request[1])
-            
         config_parameters.append(parameter_dict)
 
         
